@@ -1,10 +1,5 @@
 USE ECOMMERCE;
 
-
--- =========================================
--- CREATE PAYMENT TABLE
--- =========================================
-
 CREATE TABLE PAYMENT
 (
     PAYMENTID INT PRIMARY KEY,
@@ -18,10 +13,6 @@ CREATE TABLE PAYMENT
     REFERENCES ORDERTABLE(ORDER_ID)
 );
 
-
--- =========================================
--- 1. INSERT VALUES
--- =========================================
 
 INSERT INTO PAYMENT VALUES
 (601, 1001, 'UPI',  '2026-09-15', 33000.00, 'SUCCESSFUL'),
@@ -37,11 +28,6 @@ INSERT INTO PAYMENT VALUES
 
 SELECT * FROM PAYMENT;
 
-
--- =========================================
--- 2. UPDATE & CHANGE PAYMENT STATUS
--- =========================================
-
 UPDATE PAYMENT
 SET PAYMENTSTATUS = 'SUCCESSFUL'
 WHERE PAYMENTID = 603;
@@ -50,62 +36,28 @@ UPDATE PAYMENT
 SET PAYMENTSTATUS = 'SUCCESSFUL'
 WHERE PAYMENTID = 607;
 
-
 SELECT * FROM PAYMENT
 WHERE PAYMENTID IN (603, 607);
-
-
--- =========================================
--- 3. DISPLAY SUCCESSFUL PAYMENT
--- =========================================
 
 SELECT * FROM PAYMENT
 WHERE PAYMENTSTATUS = 'SUCCESSFUL';
 
-
--- =========================================
--- 4. DISPLAY FAILED TRANSACTION
--- =========================================
-
 SELECT * FROM PAYMENT
 WHERE PAYMENTSTATUS = 'FAILED';
-
-
--- =========================================
--- 5. DISPLAY PAYMENT BASED ON PAYMENT MODE
--- =========================================
-
--- UPI PAYMENT
 
 SELECT * FROM PAYMENT
 WHERE PAYMENTMODE = 'UPI';
 
-
--- CARD PAYMENT
-
 SELECT * FROM PAYMENT
 WHERE PAYMENTMODE = 'CARD';
 
-
--- CASH PAYMENT
-
 SELECT * FROM PAYMENT
 WHERE PAYMENTMODE = 'CASH';
-
-
--- =========================================
--- 6. NUMBER OF TRANSACTIONS IN EACH MODE
--- =========================================
 
 SELECT PAYMENTMODE,
        COUNT(*) AS NUMBEROFTRANSACTIONS
 FROM PAYMENT
 GROUP BY PAYMENTMODE;
-
-
--- =========================================
--- 7. TOTAL AMOUNT RECEIVED IN EACH MODE
--- =========================================
 
 SELECT PAYMENTMODE,
        SUM(PAYMENTAMOUNT) AS TOTALAMOUNTRECEIVED
